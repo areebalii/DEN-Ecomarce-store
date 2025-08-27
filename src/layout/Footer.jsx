@@ -6,7 +6,7 @@ export const Footer = () => {
     <footer className="footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <h2>Printify</h2>
+          <h2>E-Store</h2>
           <p>Custom Tees & Products Made With ❤️</p>
         </div>
 
@@ -22,8 +22,8 @@ export const Footer = () => {
 
         <div className="footer-contact">
           <h4>Contact</h4>
-          <p>Email: support@printify.com</p>
-          <p>Phone: +92 123 456 7890</p>
+          <p>Email: areebktk8@gmail.com</p>
+          <p>Phone: +92 307 8467479</p>
           <p>Location: Islamabad, Pakistan</p>
         </div>
 
