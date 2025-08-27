@@ -1,0 +1,122 @@
+.footer {
+  background-color: #222;
+  color: #eee;
+  padding: 40px 20px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: -1;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-brand h2 {
+  color: #4a4aef;
+  margin-bottom: 10px;
+}
+
+.footer-links,
+.footer-contact,
+.footer-social {
+  min-width: 200px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+  color: #fff;
+}
+
+.footer-contact p,
+.footer-social p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.footer-social .social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.footer-social .social-icons a {
+  color: #ccc;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.footer-social .social-icons a:hover {
+  color: #4a4aef;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #444;
+  padding-top: 15px;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .footer-links ul {
+    display: inline-block;
+  }
+  .footer-social .social-icons {
+   align-items: center;
+   justify-content: center;
+  }
+}
+
+.footer-social .social-icons a {
+  color: #ccc;
+  font-size: 1.5rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Unique hover colors */
+.footer-social .social-icons a.facebook:hover {
+  color: #1877f2; /* Facebook Blue */
+  transform: translateY(-3px);
+}
+
+.footer-social .social-icons a.instagram:hover {
+  color: #e4405f; /* Instagram Pink */
+  transform: translateY(-3px);
+}
+
+.footer-social .social-icons a.twitter:hover {
+  color: #1da1f2; /* Twitter Blue */
+  transform: translateY(-3px);
+}
+
+.footer-social .social-icons a.linkedin:hover {
+  color: #0077b5; /* LinkedIn Blue */
+  transform: translateY(-3px);
+}

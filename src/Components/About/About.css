@@ -1,0 +1,77 @@
+.about-container {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.about-container h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1d4ed8;
+}
+
+.about-intro {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #444;
+}
+
+.about-section {
+  margin-bottom: 2rem;
+}
+
+.about-section h2 {
+  color: #1d4ed8;
+  margin-bottom: 0.5rem;
+}
+
+.about-section p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.about-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.about-section ul li {
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.about-section ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #1d4ed8;
+}
+
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-style: italic;
+  color: #555;
+}
+
+.testimonials blockquote {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-left: 4px solid #1d4ed8;
+  border-radius: 8px;
+}
+
+.testimonials span {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: #1f2937;
+}
