@@ -206,10 +206,9 @@
 
 .loader-container {
   display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
-  min-height: 80vh;          /* adjust, so it takes full screen except navbar/footer */
-}
+  justify-content: center;   
+  align-items: center;       
+  min-height: 80vh;          
 
 .loader {
   border: 6px solid #f3f3f3;       /* Light gray */

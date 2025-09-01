@@ -7,10 +7,6 @@ import { Product } from "../product/Product";
 export const Home = () => {
   const { loading, products } = useContext(ProductContext);
 
-  // Pick featured + new arrivals from context products
-  const featured = products.slice(0, 4);
-  const newArrivals = products.slice(15, 19);
-
   if (loading) {
     return (
       <div className="loading circle">
@@ -18,6 +14,15 @@ export const Home = () => {
       </div>
     );
   }
+
+  // Sort products by createdAt for new arrivals
+  const sortedByDate = [...products].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+  const newArrivals = sortedByDate.slice(0, 4);
+
+  // Featured → pick first 4 products (or random 4)
+  const featured = products.slice(0, 4);
 
   return (
     <div className="home-container">
@@ -47,7 +52,7 @@ export const Home = () => {
         <h2>New Arrivals</h2>
         <div className="product-grid">
           {newArrivals.map((p) => (
-            <Product key={p._id || p.id} product={p} />
+            <Product key={p._id} product={p} />
           ))}
         </div>
       </section>
@@ -57,7 +62,7 @@ export const Home = () => {
         <h2>Featured Products</h2>
         <div className="product-grid">
           {featured.map((p) => (
-            <Product key={p._id || p.id} product={p} />
+            <Product key={p._id} product={p} />
           ))}
         </div>
       </section>
@@ -67,37 +72,25 @@ export const Home = () => {
         <h2>BROWSE BY CATEGORY</h2>
         <div className="category-grid">
           <NavLink to="/category/men" className="category-card">
-            <img
-              src="https://mjshopco.vercel.app/assets/menClothing.jpg"
-              alt="Men Clothing"
-            />
+            <img src="https://mjshopco.vercel.app/assets/menClothing.jpg" alt="Men Clothing" />
             <strong>Men Clothing</strong>
           </NavLink>
           <NavLink to="/category/women" className="category-card">
-            <img
-              src="https://mjshopco.vercel.app/assets/womenClothing.jpg"
-              alt="Women"
-            />
+            <img src="https://mjshopco.vercel.app/assets/womenClothing.jpg" alt="Women" />
             <strong>Women</strong>
           </NavLink>
           <NavLink to="/category/jewelry" className="category-card">
-            <img
-              src="https://mjshopco.vercel.app/assets/jewelry.jpg"
-              alt="Jewelry"
-            />
+            <img src="https://mjshopco.vercel.app/assets/jewelry.jpg" alt="Jewelry" />
             <strong>Jewelry</strong>
           </NavLink>
           <NavLink to="/category/electronics" className="category-card">
-            <img
-              src="https://mjshopco.vercel.app/assets/electronics.jpg"
-              alt="Electronics"
-            />
+            <img src="https://mjshopco.vercel.app/assets/electronics.jpg" alt="Electronics" />
             <strong>Electronics</strong>
           </NavLink>
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* CTA */}
       <section className="cta">
         <h2>Don't Miss Out!</h2>
         <p>Subscribe to get updates on the latest deals and new arrivals.</p>
@@ -108,3 +101,4 @@ export const Home = () => {
     </div>
   );
 };
+

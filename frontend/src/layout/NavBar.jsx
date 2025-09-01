@@ -12,13 +12,20 @@ export const NavBar = () => {
 
   const [userName, setUserName] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // 👈 mobile menu toggle
 
   useEffect(() => {
     if (token) {
-      const storedUser = JSON.parse(localStorage.getItem("user")); 
-      if (storedUser?.name) {
-        setUserName(storedUser.name); // ✅ real name
-      } else {
+      try {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+
+        if (storedUser && storedUser.name) {
+          setUserName(storedUser.name);
+        } else {
+          setUserName("User");
+        }
+      } catch (err) {
+        console.error("Error parsing user from localStorage:", err);
         setUserName("User");
       }
     }
@@ -27,6 +34,7 @@ export const NavBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    setUserName("");
     navigate("/login");
   };
 
@@ -38,7 +46,17 @@ export const NavBar = () => {
           E-Store
         </NavLink>
 
-        {/* Search Box */}
+        {/* Hamburger (mobile only) */}
+        <button
+          className={`hamburger ${menuOpen ? "active" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {/* Search Box (hidden on very small screens) */}
         <div className="search">
           <input
             type="text"
@@ -48,6 +66,7 @@ export const NavBar = () => {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 navigate("/products");
+                setMenuOpen(false);
               }
             }}
           />
@@ -55,16 +74,16 @@ export const NavBar = () => {
             <i className="fas fa-search"></i>
           </button>
 
-          {/* Suggestions */}
           {searchFilterProduct && (
             <div className="search-suggestions">
               {filteredProducts.slice(0, 5).map((item) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="suggestion-item"
                   onClick={() => {
-                    navigate(`/products/${item.id}`);
+                    navigate(`/products/${item._id}`);
                     setSearchFilterProduct("");
+                    setMenuOpen(false);
                   }}
                 >
                   <img src={item.image} alt={item.title} />
@@ -80,24 +99,23 @@ export const NavBar = () => {
         </div>
 
         {/* Links */}
-        <div className="navbar-links">
-          <NavLink to="/" className="nav-item">
+        <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
+          <NavLink to="/" className="nav-item" onClick={() => setMenuOpen(false)}>
             Home
           </NavLink>
-          <NavLink to="/about" className="nav-item">
+          <NavLink to="/about" className="nav-item" onClick={() => setMenuOpen(false)}>
             About
           </NavLink>
-          <NavLink to="/products" className="nav-item">
+          <NavLink to="/products" className="nav-item" onClick={() => setMenuOpen(false)}>
             Products
           </NavLink>
-          <NavLink to="/contact" className="nav-item">
+          <NavLink to="/contact" className="nav-item" onClick={() => setMenuOpen(false)}>
             Contact
           </NavLink>
-          <NavLink to="/cart" className="nav-item cart">
+          <NavLink to="/cart" className="nav-item cart" onClick={() => setMenuOpen(false)}>
             🛒
           </NavLink>
 
-          {/* If logged in */}
           {token ? (
             <div className="user-dropdown">
               <button
@@ -109,21 +127,34 @@ export const NavBar = () => {
 
               {dropdownOpen && (
                 <div className="dropdown-menu">
-                  <NavLink to="/add-product" className="dropdown-item add-product" onClick={() => setDropdownOpen(false)}>
+                  <NavLink
+                    to="/add-product"
+                    className="dropdown-item add-product"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      setMenuOpen(false);
+                    }}
+                  >
                     ➕ Add Product
                   </NavLink>
-                  <button className="dropdown-item logout" onClick={handleLogout}>
+                  <button
+                    className="dropdown-item logout"
+                    onClick={() => {
+                      handleLogout();
+                      setMenuOpen(false);
+                    }}
+                  >
                     🚪 Logout
-                  </button> 
+                  </button>
                 </div>
               )}
             </div>
           ) : (
             <>
-              <NavLink to="/login" className="nav-item">
+              <NavLink to="/login" className="nav-item" onClick={() => setMenuOpen(false)}>
                 Login
               </NavLink>
-              <NavLink to="/register" className="nav-item">
+              <NavLink to="/register" className="nav-item" onClick={() => setMenuOpen(false)}>
                 Register
               </NavLink>
             </>

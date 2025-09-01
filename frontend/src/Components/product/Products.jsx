@@ -16,7 +16,7 @@ export const Products = () => {
     selectCategory === "All"
       ? filteredProducts
       : filteredProducts.filter((pro) =>
-          pro.category.toLowerCase().includes(selectCategory.toLowerCase())
+         pro.category && pro.category.toLowerCase().includes(selectCategory.toLowerCase())
         );
 
   const indexOfLastProduct = currentPage * productPerPage;

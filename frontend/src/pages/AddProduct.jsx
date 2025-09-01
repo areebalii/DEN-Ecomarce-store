@@ -5,6 +5,7 @@ const AddProduct = () => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState(""); // ✅ add category state
   const [image, setImage] = useState(null);
 
   const { setProducts } = useContext(ProductContext);
@@ -17,6 +18,7 @@ const AddProduct = () => {
     formData.append("title", title);
     formData.append("price", price);
     formData.append("description", description);
+    formData.append("category", category); // ✅ send category
     if (image) {
       formData.append("image", image);
     }
@@ -24,7 +26,7 @@ const AddProduct = () => {
     const res = await fetch("http://localhost:5000/api/products", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`, // ❌ no Content-Type here (browser sets it)
+        Authorization: `Bearer ${token}`, 
       },
       body: formData,
     });
@@ -37,6 +39,7 @@ const AddProduct = () => {
       setTitle("");
       setPrice("");
       setDescription("");
+      setCategory(""); // ✅ reset category
       setImage(null);
     } else {
       alert(data.message || "Failed to add product");
@@ -68,11 +71,22 @@ const AddProduct = () => {
           onChange={(e) => setDescription(e.target.value)}
           required
         ></textarea>
+
+        {/* ✅ Category input */}
+        <input
+          type="text"
+          placeholder="Product category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        />
+
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
         />
+
         <button type="submit">Upload Product</button>
       </form>
     </div>

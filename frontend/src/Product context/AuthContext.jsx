@@ -1,4 +1,3 @@
-// src/context/AuthContext.js
 import { createContext, useEffect, useState } from "react";
 import API from "../api";
 
@@ -12,10 +11,12 @@ export const AuthProvider = ({ children }) => {
     // Try to fetch user from backend using stored token
     const fetchUser = async () => {
       try {
-        const { data } = await API.get("/auth/me"); 
+        const { data } = await API.get("/auth/me");
         setUser(data);
+        localStorage.setItem("user", JSON.stringify(data)); //  persist user
       } catch {
         setUser(null);
+        localStorage.removeItem("user");
       } finally {
         setLoading(false);
       }
@@ -23,14 +24,15 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, []);
 
-  const login = (user, token) => {
+  const login = (userData, token) => {
     localStorage.setItem("token", token);
-    setUser(user);
+    localStorage.setItem("user", JSON.stringify(userData)); //  save user
+    setUser(userData);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("user"); //  clear user too
     setUser(null);
   };
 

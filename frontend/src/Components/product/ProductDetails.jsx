@@ -20,7 +20,11 @@ export const ProductDetails = () => {
   }, [id, loading, products]);
 
   if (loading || !product) {
-    return <h1 className="loading">Loading...</h1>
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    )
   }
   if (!product && !loading) {
     <p>Product not found.</p>;
@@ -31,8 +35,16 @@ export const ProductDetails = () => {
   }
 
   const relatedProducts = products.filter((item) => {
-    return item.category === product.category && item.id !== product.id
-  }).slice(0, 8)
+    const currentId = product._id || product.id;
+    const itemId = item._id || item.id;
+
+    return (
+      item.category === product.category &&
+      itemId !== currentId
+    );
+  }).slice(0, 8);
+
+
 
 
 
@@ -78,7 +90,13 @@ export const ProductDetails = () => {
           </label>
           {/* price */}
           <p className="price">${product.price}</p>
-          <button className="btn-primary" onClick={() => addToCart(product)}>Add to Cart</button>
+          <button
+            className="btn-primary"
+            onClick={() => addToCart(product._id || product.id, Quantity)}
+          >
+            Add to Cart
+          </button>
+
         </div>
       </div>
 
@@ -87,14 +105,17 @@ export const ProductDetails = () => {
         <h3>Related Products</h3>
         <div className="related-grid">
           {relatedProducts.map((item) => (
-            <div className="related-card" key={item.id}>
+            <div className="related-card" key={item._id || item.id}>
               <img src={item.image} alt={item.title} />
-              <h4>{item.title.length > 20 ? item.title.slice(0, 20) + "..." : item.title}</h4>
+              <h4>
+                {item.title.length > 20 ? item.title.slice(0, 20) + "..." : item.title}
+              </h4>
               <p>${item.price}</p>
-              <NavLink to={`/products/${item.id}`} className="detail-btn">
+              <NavLink to={`/products/${item._id || item.id}`} className="detail-btn">
                 View Details
               </NavLink>
             </div>
+
           ))}
         </div>
       </div>

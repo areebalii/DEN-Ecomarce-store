@@ -18,8 +18,9 @@ export default function Login() {
     setLoading(true);
     try {
       const { data } = await API.post("/auth/login", form);
+      // backend sends: { token, user }
       login(data.user, data.token);
-      alert(data.message || "Login successful");
+      alert("Login successful");
       navigate("/");
     } catch (err) {
       alert(err.response?.data?.msg || "Invalid credentials");

@@ -1,4 +1,7 @@
-
+.emptyCartDiv{
+  text-align: center;
+  margin-top: 4rem;
+}
 .cart-contain {
   max-width: 900px;
   margin: 2rem auto;
@@ -195,6 +198,23 @@
 .checkout-btn:disabled {
   background-color: #94a3b8;
   cursor: not-allowed;
+}
+.clearBtnDiv{
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.clear-btn{
+  background-color: #ef4444;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.clear-btn:hover{
+  background-color: #dc2626;
 }
 
 /* Responsive */
